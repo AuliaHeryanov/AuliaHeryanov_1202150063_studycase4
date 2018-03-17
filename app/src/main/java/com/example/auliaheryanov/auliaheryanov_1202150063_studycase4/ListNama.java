@@ -18,9 +18,11 @@ public class ListNama extends AppCompatActivity {
     private ListView mListMahasiswa;
     private Button mStartAsyncTask;
     private ProgressBar mProgressBar;
+    //arraynya
     private String[] mahasiswaArray = {
             "Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India"
             , "Juliet", "Kilo", "Lima"};
+    //selfexplanatory
     private AddItemToListView mAddItemToListView;
 
     @Override
@@ -31,13 +33,13 @@ public class ListNama extends AppCompatActivity {
         mListMahasiswa = findViewById(R.id.listMahasiswa);
         mProgressBar = findViewById(R.id.progressBar);
         mStartAsyncTask = findViewById(R.id.buttonMulai);
-
+        //adapter dr array ke layout simple_list_item_1 (layout udh default)
         mListMahasiswa.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new ArrayList<String>()));
 
         mStartAsyncTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //process adapter with asyncTask
+                //memproses adapter dengan asynctask
                 mAddItemToListView = new AddItemToListView();
                 mAddItemToListView.execute();
             }

@@ -1,8 +1,6 @@
 package com.example.auliaheryanov.auliaheryanov_1202150063_studycase4;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,10 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
-import java.io.InputStream;
-import java.net.URL;
+import com.squareup.picasso.Picasso;
 
 public class CariGambar extends AppCompatActivity {
 
@@ -26,7 +22,7 @@ public class CariGambar extends AppCompatActivity {
 //   sebelum itu masukkan <uses-permission android:name="android.permission.INTERNET"/> kedalam manifest
 
     @Override
-    protected void onCreate(Bundle state) {
+    public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_cari_gambar);
 
@@ -45,43 +41,28 @@ public class CariGambar extends AppCompatActivity {
         new loadImage().execute(ImgUrl);
     }
 
-    private class loadImage extends AsyncTask<String, Void, Bitmap> {
+    private class loadImage extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
             // Membuat Progress Dialog
             mProgressDialog = new ProgressDialog(CariGambar.this);
-
-//            // Judul Progress Dialog
-//            mProgressDialog.setTitle("Downloading image");
-
-            // Seting message Progress Dialog
             mProgressDialog.setMessage("Loading...");
-
-            // menampilkan Progress Dialog
             mProgressDialog.show();
         }
 
         @Override
-        protected Bitmap doInBackground(String... params) {
-            Bitmap bitmap = null;
-            try {
-                // mendownload gambar dari url
-                URL url = new URL(params[0]);
-                // mengkonversikan gambar ke bitmat (decode to bitmap)
-                bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bitmap;
+        protected String doInBackground(String... params) {
+            //ngoper string ke onPost
+            return params[0];
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            // menampung gambar ke imageView dan menampilkannya
-            mTampilGambar.setImageBitmap(bitmap);
+        protected void onPostExecute(String mInputLink) {
+            super.onPostExecute(mInputLink);
+            //memakai library picasso untuk mengambil gambar dari internet dan ditaro di layout
+            Picasso.get().load(mInputLink).into(mTampilGambar);
 
             // menghilangkan Progress Dialog
             mProgressDialog.dismiss();
