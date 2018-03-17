@@ -59,10 +59,10 @@ public class CariGambar extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String mInputLink) {
-            super.onPostExecute(mInputLink);
+        protected void onPostExecute(String ImgUrl) {
+            super.onPostExecute(ImgUrl);
             //memakai library picasso untuk mengambil gambar dari internet dan ditaro di layout
-            Picasso.get().load(mInputLink).into(mTampilGambar);
+            Picasso.get().load(ImgUrl).into(mTampilGambar);
 
             // menghilangkan Progress Dialog
             mProgressDialog.dismiss();
